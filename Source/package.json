@@ -1,0 +1,43 @@
+{
+  "name": "wolfapi-ts",
+  "version": "1.0.0",
+  "description": "A Typescript WOLF API",
+  "main": "dist/WOLFApi-TS.node.min.js",
+  "dependencies": {
+    "fast-text-encoding": "^1.0.0",
+    "jimp": "^0.9.3",
+    "navigator": "^1.0.1",
+    "rand-token": "^0.4.0",
+    "rtcpeerconnection": "^8.4.0",
+    "rxjs": "^6.5.4",
+    "socket.io-client": "^2.2.0",
+    "typescript-base64-arraybuffer": "^0.1.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.10",
+    "@types/socket.io-client": "^1.4.29",
+    "rimraf": "^2.6.3",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
+  },
+  "scripts": {
+    "build": "npm run build-web && npm run build-node && npm run declarations",
+    "watch": "webpack --watch --color --progress --config ./webpack-web.config.js",
+    "declarations": "dts-generator --project ./ --out ./index.unformatted.d.ts && rimraf ./typings && node after-declaration.js && rimraf ./index.unformatted.d.ts",
+    "git-commit": "cd .. && git add . && git commit -m \"automatic commit\" && git push && cd library",
+    "publish-npm": "npm run build && npm run git-commit && npm version patch && npm publish",
+    "build-web": "webpack --progress --color --config ./webpack-web.config.js",
+    "build-node": "webpack --progress --color --config ./webpack-node.config.js",
+    "build-test": "webpack --progress --color --config ./webpack-test.config.js"
+  },
+  "keywords": [
+    "WOLF",
+    "Palringo",
+    "API"
+  ],
+  "author": "Masamesa with a hint of CalicoCrusade",
+  "license": "MIT"
+}
