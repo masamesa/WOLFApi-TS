@@ -1,4 +1,4 @@
-import{User, ExtendedUser, Group, Message, iHistoricalMessage} from '.././Modules/Modules'
+import{User, ExtendedUser, Group, Message, IHistoricalMessage} from '.././Modules/Modules'
 import{ encode } from 'typescript-base64-arraybuffer'
 import * as fs from 'fs'
 
@@ -29,7 +29,7 @@ export class Extensions {
         );
     }
 
-    static fromHistoricalMessage(msg: iHistoricalMessage) : Message {
+    static fromHistoricalMessage(msg: IHistoricalMessage) : Message {
         var m = new Message();
 
         m.data = msg.data;
@@ -60,7 +60,7 @@ export class Extensions {
         return m;
     }
 
-    static fromHistory(msgs: iHistoricalMessage[]) : Message[] {
+    static fromHistory(msgs: IHistoricalMessage[]) : Message[] {
         var out = [];
 
         for(var i = 0; i < msgs.length; i++){

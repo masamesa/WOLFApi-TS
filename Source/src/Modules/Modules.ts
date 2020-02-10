@@ -4,7 +4,7 @@ import {Role, LookingFor, Gender, RelationshipStatus, Language, DeviceType, News
 declare var TextDecoder: any, TextEncoder: any;
 import  {EventTarget} from 'navigator'
 
-export class adminActionResult{
+export class AdminActionResult{
     sucess: boolean;
     noPower: boolean;
     insufficientPower: boolean;
@@ -14,7 +14,7 @@ export class adminActionResult{
     unknownReason: boolean;
 }
 
-export class groupActionResult{
+export class GroupActionResult{
     sucess: boolean;
     higherlevel: boolean;
     groupisfull: boolean;
@@ -30,8 +30,8 @@ export class groupActionResult{
     unknownerror: boolean;
 }
 
-export class methodResult{
-    type: adminActionResult | groupActionResult;
+export class MethodResult{
+    type: AdminActionResult | GroupActionResult;
     result: boolean;
 }
 
@@ -45,7 +45,7 @@ export class GroupMember {
     };
 }
 
-export class selectedList {
+export class SelectedList {
     charmId?: number;
     position?: number;
 }
@@ -91,7 +91,7 @@ export class User{
     contactListBlockedState?: any;
     //unsure what type either are, couldn't get result to appear. Likely number or boolean
     contactListAuthState?: any;
-    charms?: selectedList[];
+    charms?: SelectedList[];
     email?: string;
 }
 
@@ -347,7 +347,7 @@ export interface IHistoricalMessageMetadata {
     isSpam?: boolean;
 }
 
-export interface iHistoricalMessage{
+export interface IHistoricalMessage{
     id: string;
     isGroup: boolean;
     originator: IIdHash | number;

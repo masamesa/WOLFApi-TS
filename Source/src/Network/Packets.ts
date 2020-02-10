@@ -1,6 +1,6 @@
 import { Packet } from './../Network/Packet';
 import {encode} from 'typescript-base64-arraybuffer';
-import { ExtendedMessage, AdminAction, ExtendedUser, selectedList, ExtendedGroup, CGroup } from '.././Modules/Modules';
+import { ExtendedMessage, AdminAction, ExtendedUser, SelectedList, ExtendedGroup, CGroup } from '.././Modules/Modules';
 import { AdminActionTypes, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '.././Types/Types'
 import { brotliDecompressSync } from 'zlib';
 import { lookup } from 'dns';
@@ -204,9 +204,9 @@ export class Packets{
         });
     }
 
-    setSelectedCharm(charm: selectedList[]){
+    setSelectedCharm(charm: SelectedList[]){
         return new Packet('charm subscriber set selected',{
-            selectedList: charm
+            SelectedList: charm
         });
     }
     //#endregion

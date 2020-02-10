@@ -1,7 +1,7 @@
 import {Dictionary} from '../Polyfill/Dictionary';
 import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets'
-import {ExtendedUser, ExtendedMessage, Group, User, GroupMember, ExtendedGroup, Message, iHistoricalMessage, Charms, selectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Modules/Modules';
+import {ExtendedUser, ExtendedMessage, Group, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Modules/Modules';
 import { Privilege, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '../Types/Types'
 import { runInThisContext } from 'vm';
 import { promises } from 'fs';
@@ -275,7 +275,7 @@ export class Information{
     }
 
     async updateCharm(charmid: number, position: number = 0){
-        var charm: selectedList[] = [{ charmId: charmid, position: position }];
+        var charm: SelectedList[] = [{ charmId: charmid, position: position }];
         this.client.writePacket(this.Packet.setSelectedCharm(charm));
     }
 
@@ -285,14 +285,14 @@ export class Information{
     //#endregion
 
     conversationList(callback?: (history: Message[]) => void){
-        this.client.writePacket(this.Packet.ConversationHistory(), true, false, (resp:iHistoricalMessage[]) => {
+        this.client.writePacket(this.Packet.ConversationHistory(), true, false, (resp:IHistoricalMessage[]) => {
             if(callback)
                 callback(Extensions.fromHistory(resp));
         });
     }
 
     messageHistory(id: number, from: Date, group: boolean, chronological: boolean, callback?: (hist: Message[]) => void){
-        this.client.writePacket(this.Packet.MessageHistory(id, from, group, chronological), true, false, (resp: iHistoricalMessage[]) =>{
+        this.client.writePacket(this.Packet.MessageHistory(id, from, group, chronological), true, false, (resp: IHistoricalMessage[]) =>{
             if(callback)
                 callback(Extensions.fromHistory(resp));
         });
