@@ -242,7 +242,7 @@ export class Packets{
         });
     }
 
-    requestDiscoverGroups(language: Language = Language.english, maxResults: number, offset: number, admin: boolean = false, repLevel?: number, recipieId?: number){
+    requestDiscoverGroups(language: Language = Language.english, maxResults: number, offset: number = 0, admin: boolean = false, repLevel?: number, recipieId?: number){
         return new Packet('group discovery list', {
             maxResults: maxResults,
             offset: offset,

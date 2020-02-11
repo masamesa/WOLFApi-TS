@@ -218,7 +218,7 @@ export class Information{
         });
     }
 
-    async requestDiscoverGroups(languageCode: Language, maxResults: number, offset: number, callback?: (any) => void, admin?: boolean, repLevel?: number, recipieId?: number){
+    async requestDiscoverGroups(languageCode: Language, maxResults: number, callback?: (any) => void, offset?: number, admin?: boolean, repLevel?: number, recipieId?: number){
         this.client.writePacket(this.Packet.requestDiscoverGroups(languageCode, maxResults, offset, isNull(admin) ? false : admin, repLevel, recipieId), false, false, resp => {
             if(callback)
                 callback(resp);

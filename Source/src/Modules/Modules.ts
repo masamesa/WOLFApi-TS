@@ -136,17 +136,17 @@ export class ExtendedUser extends User{
 }
 
 export class CGroup{
-    name: string;
-    description: string;
-    extended: {
-        longDescription: string;
-        language: Language;
-        entryLevel: number;
-        discoverable: boolean;
-        advancedAdmin: boolean;
+    name?: string;
+    description?: string;
+    extended?: {
+        longDescription?: string;
+        language?: Language;
+        entryLevel?: number;
+        discoverable?: boolean;
+        advancedAdmin?: boolean;
     }
-    password: string;
-    peekable: boolean;
+    password?: string;
+    peekable?: boolean;
 }
 
 export class Group {

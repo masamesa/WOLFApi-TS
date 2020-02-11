@@ -102,9 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-# Testing files
-test.ts
-main.js
-test.jpg
-webpack-test.config.js
