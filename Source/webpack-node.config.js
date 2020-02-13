@@ -27,7 +27,7 @@ module.exports = [
         rules: [{
             test: /\.tsx?$/,
             include: [
-                root('src')
+                root('Source/src')
             ],
             loader: 'ts-loader'
         }]

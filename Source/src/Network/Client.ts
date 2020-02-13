@@ -4,12 +4,9 @@ import * as RToken from 'rand-token';
 import {Packet, iPacket} from './../Network/Packet'
 import {Packets} from './../Network/Packets'
 import { Delegates } from './Delegates';
-import { ExtendedGroup, ExtendedUser, IMessage, ExtendedMessage, AdminAction, Message, GroupMember } from '.././Modules/Modules';
+import { ExtendedUser, IMessage, ExtendedMessage, AdminAction} from '.././Modules/Modules';
 import { Information } from '../Information/Information';
-import { throws } from 'assert';
 import { Extensions } from '../Extensions/Extensions';
-import { emit, on, worker } from 'cluster';
-import { WolfClient } from '.././WOLFClient'
 import {DeviceType} from '.././Types/Types'
 import {Actions} from '../Actions/Actions'
 import { Messaging } from '../Communication';

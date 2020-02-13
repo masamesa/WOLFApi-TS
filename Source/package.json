@@ -24,11 +24,9 @@
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "build": "npm run build-web && npm run build-node && npm run declarations",
+    "build": "npm run build-web && npm run build-node",
     "watch": "webpack --watch --color --progress --config ./webpack-web.config.js",
-    "declarations": "dts-generator --project ./ --out ./index.unformatted.d.ts && rimraf ./typings && node after-declaration.js && rimraf ./index.unformatted.d.ts",
-    "git-commit": "cd .. && git add . && git commit -m \"automatic commit\" && git push && cd library",
-    "publish-npm": "npm run build && npm run git-commit && npm version patch && npm publish",
+    "publish-npm": "npm run build && npm version patch && npm publish",
     "build-web": "webpack --progress --color --config ./webpack-web.config.js",
     "build-node": "webpack --progress --color --config ./webpack-node.config.js",
     "build-test": "webpack --progress --color --config ./webpack-test.config.js"

@@ -1,7 +1,6 @@
 import { WolfClient } from './../WOLFClient';
 import { Group, User, ExtendedMessage } from '../Modules/Modules';
 import { Dictionary } from './../Polyfill/Dictionary';
-import { stringify } from 'querystring';
 
 export interface iPluginOptions{
     aliases?: string[];

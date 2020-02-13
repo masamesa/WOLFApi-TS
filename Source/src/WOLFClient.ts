@@ -1,5 +1,4 @@
 import {Client} from './Network/Client';
-import { ExtendedMessage, ExtendedUser } from './Modules/Modules';
 import { PluginInstance } from './Extensions';
 
 export class WolfClient{

@@ -1,8 +1,7 @@
 //a few things are stolen from calico-crusade's palringoapi-ts, I don't see a better way to do this, it's just a packet response model afterall.
 //https://github.com/calico-crusade/palringoapi-ts/blob/75fd0626566d4c3db0cbb60d40b5192e815f1fec/library/src/Subprofile/Subprofile.ts
 import {Role, LookingFor, Gender, RelationshipStatus, Language, DeviceType, NewsType} from './../Types/Types'
-declare var TextDecoder: any, TextEncoder: any;
-import  {EventTarget} from 'navigator'
+declare var TextDecoder: any;
 
 export class AdminActionResult{
     sucess: boolean;

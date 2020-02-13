@@ -1,14 +1,10 @@
 import {Dictionary} from '../Polyfill/Dictionary';
 import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets'
-import {ExtendedUser, ExtendedMessage, Group, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Modules/Modules';
+import {ExtendedUser, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Modules/Modules';
 import { Privilege, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '../Types/Types'
-import { runInThisContext } from 'vm';
-import { promises } from 'fs';
-import { Messaging } from '../Communication/Messaging'
 import { Extensions } from '../Extensions';
-import { resolve } from 'dns';
-import { isNull, callbackify } from 'util';
+import { isNull } from 'util';
 
 
 //Everything in this class is rather self explanitory, I have documented some things, however you can

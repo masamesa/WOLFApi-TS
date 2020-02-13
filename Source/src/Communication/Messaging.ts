@@ -1,7 +1,6 @@
 import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets';
-import {AdminActionTypes, Role, GroupType} from '../Types/Types';
-import {ExtendedGroup, ExtendedMessage } from '../Modules/Modules';
+import {ExtendedMessage } from '../Modules/Modules';
 import * as jimp from 'jimp';
 
 export class Messaging{
