@@ -5,6 +5,7 @@
   "main": "dist/WOLFApi-TS.node.min.js",
   "dependencies": {
     "fast-text-encoding": "^1.0.0",
+    "fs-web": "^1.0.1",
     "jimp": "^0.9.3",
     "navigator": "^1.0.1",
     "rand-token": "^0.4.0",
@@ -12,6 +13,7 @@
     "rxjs": "^6.5.4",
     "socket.io-client": "^2.2.0",
     "typescript-base64-arraybuffer": "^0.1.0",
+    "web-fs": "^2.1.0",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
@@ -36,6 +38,6 @@
     "Palringo",
     "API"
   ],
-  "author": "Masamesa with a hint of CalicoCrusade",
+  "author": "Masamesa",
   "license": "MIT"
 }

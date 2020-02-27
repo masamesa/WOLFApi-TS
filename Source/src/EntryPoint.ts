@@ -1,7 +1,7 @@
 import { WolfClient } from './WOLFClient'
 import { iPluginOptions, PluginInstance } from './Extensions'
 
-export function PalBot(url?: string): WolfClient{
+export function WolfBot(url?: string): WolfClient{
     return new WolfClient(url);
 }
 

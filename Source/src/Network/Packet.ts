@@ -1,12 +1,4 @@
-export interface iPacket{
-    command: string;
-    body: any;
-    timestamp: Date;
-    headers?: any;
-}
-
-export class Packet implements iPacket{
-    //To be compliant with the interface.
+export class Packet{
 
     public command: string;
     public body: any;

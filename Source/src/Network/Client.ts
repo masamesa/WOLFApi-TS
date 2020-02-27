@@ -1,7 +1,6 @@
 
 import * as socket from 'socket.io-client';
 import * as RToken from 'rand-token';
-import {Packet, iPacket} from './../Network/Packet'
 import {Packets} from './../Network/Packets'
 import { Delegates } from './Delegates';
 import { ExtendedUser, IMessage, ExtendedMessage, AdminAction} from '.././Modules/Modules';
@@ -10,13 +9,14 @@ import { Extensions } from '../Extensions/Extensions';
 import {DeviceType} from '.././Types/Types'
 import {Actions} from '../Actions/Actions'
 import { Messaging } from '../Communication';
+import { Packet } from './Packet';
 
 export class Client{
         public Server: string = 'https://v3.palringo.com:3051';
         public Connection: SocketIOClient.Socket;
         public Packet = new Packets();
         public Extensions = new Extensions();
-        public On: Delegates
+        public On: Delegates;
         public info: Information;
         public actions: Actions;
         public messaging: Messaging;
@@ -112,7 +112,7 @@ export class Client{
         }
 
 
-    private PacketBody(packet: iPacket): any{
+    private PacketBody(packet: Packet): any{
         var any: any = {};
 
         if(packet.body != null || undefined)
@@ -122,7 +122,7 @@ export class Client{
         return any;
     }
 
-    public writePacket(packet: iPacket, adv?: boolean, debug?: boolean, 
+    public writePacket(packet: Packet, adv?: boolean, debug?: boolean, 
                         success?: (data: any) => void, failed?: (data) => void){
 
         var p = this.PacketBody(packet);

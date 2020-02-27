@@ -27,11 +27,13 @@ export class Messaging{
                     return;
             });
         }
+        else{
         this.client.writePacket(this.packet.messagePacket(groupID, true, data, 'text/plain'), false, false, data =>{
             if(completed)
                 completed(data);
                 return;
         });
+        }
     }
 
     async privateMessage(userID: number, data: string, isImage?: boolean, completed?: (data: any) => void){
@@ -42,11 +44,13 @@ export class Messaging{
                     return;
             });
         }
+        else{
         this.client.writePacket(this.packet.messagePacket(userID, false, data, 'text/plain'), false, false, data =>{
             if(completed)
                 completed(data);
                 return;
         });
+        }
     }
 
     async reply(msg: ExtendedMessage, data: string, isImage?: boolean, completed?: (data: any) => void){
@@ -58,12 +62,14 @@ export class Messaging{
                                                                     return;
                                                             });
         }
+        else{
         this.client.writePacket(this.packet.messagePacket(msg.isGroup == false ? msg.originator : msg.group.id, msg.isGroup,
                                                         data, 'text/plain'), false, false, data =>{
                                                             if(completed)
                                                                 completed(data);
                                                                 return;
                                                         });
+        }
     }
 
 }

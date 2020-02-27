@@ -73,7 +73,7 @@ class Main{
         //                       set to true, otherwise if you're trying to send a message leave blank/set to false.
         await client.Messaging.groupMessage(1, 'https://pbs.twimg.com/media/EP512RgWAAYfUNV?format=jpg&name=small', true);
         await client.Messaging.privateMessage(30693197, 'https://pbs.twimg.com/media/EP512RgWAAYfUNV?format=jpg&name=small', true);
-        await client.Messaging.reply(msg, './Source/test.jpg', true);
+        await client.Messaging.reply(msg, './Example/test.jpg', true);
         //Fetches all the recent conversations you've had up to what palringo stores server side. 
         await client.Info.conversationList(callback =>{
             console.log(callback);

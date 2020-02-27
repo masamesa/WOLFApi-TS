@@ -1,10 +1,10 @@
 import{User, ExtendedUser, Group, Message, IHistoricalMessage} from '.././Modules/Modules'
 import{ encode } from 'typescript-base64-arraybuffer'
-import * as fs from 'fs'
+import * as fs from 'fs'//'web-fs'//'fs'//'fs-web'
 
 export class Extensions {
     
-    //I stole these both from Alec's palringoapi-ts.
+    //I stole these from Alec's palringoapi-ts.
     //https://github.com/calico-crusade/palringoapi-ts/blob/75fd0626566d4c3db0cbb60d40b5192e815f1fec/library/src/Utilities/PalUtils.ts
     static toPalTime(date: Date){
         return date.getTime() * 1e3
@@ -21,13 +21,7 @@ export class Extensions {
         }
         return ids;
     }
-    //endsteal
 
-    async EncodeBuffer(Path: string){
-        return await encode(
-            await fs.readFileSync(Path)
-        );
-    }
 
     static fromHistoricalMessage(msg: IHistoricalMessage) : Message {
         var m = new Message();
