@@ -4,6 +4,7 @@ import { Information } from './Information/Information';
 import { Actions } from './Actions/Actions';
 import { Messaging } from './Communication/Messaging';
 import { Delegates } from './Network/Delegates';
+import { DeviceType } from './Types/Types';
 
 export class WolfClient{
     public _client: Client;
@@ -37,8 +38,8 @@ export class WolfClient{
     //    this._client.Debug = true;
     //}
 
-    async login(Email: string, Password: string){
-        this._client.login(Email, Password);
+    async login(Email: string, Password: string, Devicetype?: DeviceType){
+        this._client.login(Email, Password, Devicetype);
     }
     public get On(){
         return this._client.On;

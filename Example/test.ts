@@ -159,7 +159,7 @@ class Main{
             console.log("connected");
         }
 
-        await this.bot.login("email", "Password");
+        await this.bot.login("email", "Password", DeviceType.Web);
 
         //This registers all plugins with a command key e.g '>test' would execute everything in the plugin 'test';
         //you can have as many plugins as you want.
