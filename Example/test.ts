@@ -145,8 +145,8 @@ class Main{
         this.bot.On.LoginSuccess = (user) =>{
             console.log(user.nickname);
         }
-        this.bot.On.LoginFailed = (user) =>{
-            console.log("uh oh");
+        this.bot.On.LoginFailed = (resp) =>{
+            console.log(resp);
         }
         //This shows a log of all caught errors, good for bug reporting.
         this.bot.On.Log = (data) =>{
