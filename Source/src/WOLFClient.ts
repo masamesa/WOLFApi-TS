@@ -1,5 +1,9 @@
-import {Client} from './Network/Client';
+import { Client } from './Network/Client';
 import { PluginInstance } from './Extensions';
+import { Information } from './Information/Information';
+import { Actions } from './Actions/Actions';
+import { Messaging } from './Communication/Messaging';
+import { Delegates } from './Network/Delegates';
 
 export class WolfClient{
     public _client: Client;

@@ -1,5 +1,4 @@
 import{User, ExtendedUser, Group, Message, IHistoricalMessage} from '.././Modules/Modules'
-import{ encode } from 'typescript-base64-arraybuffer'
 import * as fs from 'fs'//'web-fs'//'fs'//'fs-web'
 
 export class Extensions {

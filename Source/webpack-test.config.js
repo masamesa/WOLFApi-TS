@@ -11,7 +11,7 @@ function root(args) {
 module.exports = [
 {
     target: 'node',
-    entry: root('src','test1.ts'),
+    entry: root('src','test.ts'),
     output: {
         path: root(),
         filename: 'main.js'

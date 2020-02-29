@@ -39,7 +39,10 @@ export class PluginInstance{
         item.options = options;
         item.oncmdex = fn;
 
+        //console.log(fn);
         PluginInstance.plugins.add(command, item);
+        //console.log(PluginInstance.plugins)
+        
     }
 
     static attach(client: WolfClient) {

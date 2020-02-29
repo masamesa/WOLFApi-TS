@@ -7,12 +7,10 @@ export function WolfBot(url?: string): WolfClient{
 
 export function Plugin(command: string, options?: iPluginOptions) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        var fn: Function;
-        var names = Object.getOwnPropertyNames(target).filter(function (p) {
+        Object.getOwnPropertyNames(target).filter(function (p) {
             if (typeof target[p] === 'function')
-                fn = target[p];
+                if(descriptor.value == target[p])
+                    PluginInstance.register(command, options, target[p]);
         });
-        if (fn)
-            PluginInstance.register(command, options, fn);
     }
 }
