@@ -28,6 +28,10 @@ export class WolfClient{
         return this._client.messaging;
     }
 
+    public get Stages(){
+        return this._client.stages;
+    }
+
     async registerPlugins(cmdChar?: string) {
         this.commandCharacter = cmdChar || '!';
         PluginInstance.attach(this);

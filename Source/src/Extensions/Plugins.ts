@@ -1,5 +1,5 @@
 import { WolfClient } from './../WOLFClient';
-import { Group, User, ExtendedMessage } from '../Modules/Modules';
+import { Group, User, ExtendedMessage } from '../Models/Models';
 import { Dictionary } from './../Polyfill/Dictionary';
 
 export interface iPluginOptions{
@@ -8,7 +8,7 @@ export interface iPluginOptions{
     groupOnly?: boolean;
     pmOnly?: boolean;
     description?: string;
-    cmdParser?: (msg: string) => any;   
+    cmdParser?: (msg: string) => any;
 }
 
 export class PluginInstance{
@@ -38,10 +38,8 @@ export class PluginInstance{
         item.command = command;
         item.options = options;
         item.oncmdex = fn;
-
-        //console.log(fn);
+        
         PluginInstance.plugins.add(command, item);
-        //console.log(PluginInstance.plugins)
         
     }
 
@@ -69,7 +67,7 @@ export class PluginInstance{
 
         var ps = PluginInstance.plugins;
 
-        var msgText = msg.text.slice(client.commandCharacter.length, msg.text.length).trim();
+        var msgText = msg.text.slice(client.commandCharacter.length, msg.text.length).trim().toLowerCase();
 
         var val = ps.getBy((k, v) => {
             if (msgText.indexOf(k) === 0)

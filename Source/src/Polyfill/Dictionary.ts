@@ -44,7 +44,7 @@ export class Dictionary<K, V> {
         return values;
     }
 
-    getBy(fn: (key: K, val?: V) => boolean) : V {
+    getBy(fn: (key: K, val?: V) => any) : V {
         for(var i = 0; i < this.Keys.length; i++) {
             if (fn(this.Keys[i], this.Values[i])) {
                 return this.Values[i];

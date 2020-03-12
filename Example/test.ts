@@ -1,5 +1,5 @@
 import { WolfClient } from '../Source/src/WOLF'
-import { ExtendedMessage, ExtendedGroup, ExtendedUser, Message, CGroup } from '../Source/src/Modules/Modules';
+import { ExtendedMessage, ExtendedGroup, ExtendedUser, Message, CGroup } from '../Source/src/Models/Models';
 import { Plugin } from '../Source/src/EntryPoint';
 import { Language, DeviceType, OnlineState, LookingFor, RelationshipStatus, Gender } from '../Source/src/Types/Types';
 
@@ -137,6 +137,21 @@ class Main{
         await client.Info.updateName('testname');
         //sets the users charm based on charm ID, must own charm
         await client.Info.updateCharm(48);
+        //gets next message of the user
+        //Parameters: ExtendedMessage, callback, and if you want to allow any next message from group to be the callback.
+        await client.Messaging.nextMessage(msg, resp => console.log(resp), true);
+        
+        //These are meant to be put in a while loop to scrape messages, I added it in purely because 
+        //this might help someone in the future with e.g a bot that allows any responses for a duration 
+        //gets next message in specified group
+        await client.Messaging.nextGroupMessage(1, resp => console.log(resp));
+        //gets next message in specified PM
+        await client.Messaging.nextPrivateMessage(1, resp => console.log(resp));
+        //returns next message of any chat
+        await client.Messaging.messages(resp => resp => console.log(resp));
+        //
+
+        
     }
 
     async login(){

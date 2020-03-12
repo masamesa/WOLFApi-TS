@@ -1,4 +1,4 @@
-import{User, ExtendedUser, Group, Message, IHistoricalMessage} from '.././Modules/Modules'
+import{User, ExtendedUser, Group, Message, IHistoricalMessage} from '../Models/Models'
 import * as fs from 'fs'//'web-fs'//'fs'//'fs-web'
 
 export class Extensions {
