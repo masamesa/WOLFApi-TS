@@ -1,7 +1,16 @@
 //a few things are stolen from calico-crusade's palringoapi-ts, I don't see a better way to do this, it's just a packet response model afterall.
 //https://github.com/calico-crusade/palringoapi-ts/blob/75fd0626566d4c3db0cbb60d40b5192e815f1fec/library/src/Subprofile/Subprofile.ts
-import {Role, LookingFor, Gender, RelationshipStatus, Language, DeviceType, NewsType} from './../Types/Types'
+import {Role, LookingFor, Gender, RelationshipStatus, Language, DeviceType, NewsType} from '../Types/Types'
 declare var TextDecoder: any;
+
+export class StageInfo{
+    id: number;
+    locked: boolean;
+    occupierId: number;
+    occupierMuted: boolean;
+    uuid: string;
+    connctionState: string;
+}
 
 export class AdminActionResult{
     sucess: boolean;
@@ -161,6 +170,16 @@ export class Group {
     peekable: boolean;
     icon: number;
 }
+export class ExtendedGroup extends Group {
+    discoverable: boolean;
+    advancedAdmin: boolean;
+    locked: boolean;
+    questionable: boolean;
+    entryLevel: number;
+    passworded: boolean;
+    language: Language
+}
+
 
 export interface Achievements{
     id: number;
@@ -264,16 +283,6 @@ export interface TopPhrases{
     value: number;
     percentage: number;
     nickname: string;
-}
-
-export class ExtendedGroup extends Group {
-    discoverable: boolean;
-    advancedAdmin: boolean;
-    locked: boolean;
-    questionable: boolean;
-    entryLevel: number;
-    passworded: boolean;
-    language: Language
 }
 
 export interface IMessage {

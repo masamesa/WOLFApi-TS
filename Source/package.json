@@ -1,6 +1,6 @@
 {
   "name": "wolfapi-ts",
-  "version": "1.0.4",
+  "version": "1.0.9",
   "description": "A Typescript WOLF API",
   "main": "dist/WOLF-TS.node.min.js",
   "files": [
@@ -9,13 +9,13 @@
     "index.d.ts"
   ],
   "dependencies": {
+    "@types/node": "^12.0.10",
+    "fake-mediastreamtrack": "^1.1.3",
     "fast-text-encoding": "^1.0.0",
     "jimp": "^0.9.3",
     "rand-token": "^0.4.0",
-    "rtcpeerconnection": "^8.4.0",
     "socket.io-client": "^2.2.0",
-    "webpack-node-externals": "^1.7.2",
-    "@types/node": "^12.0.10"
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "dts-generator": "^3.0.0",

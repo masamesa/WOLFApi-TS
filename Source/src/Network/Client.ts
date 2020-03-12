@@ -3,13 +3,14 @@ import * as socket from 'socket.io-client';
 import * as RToken from 'rand-token';
 import {Packets} from './../Network/Packets'
 import { Delegates } from './Delegates';
-import { ExtendedUser, IMessage, ExtendedMessage, AdminAction} from '.././Modules/Modules';
+import { ExtendedUser, IMessage, ExtendedMessage, AdminAction} from '../Models/Models';
 import { Information } from '../Information/Information';
 import { Extensions } from '../Extensions/Extensions';
 import {DeviceType} from '.././Types/Types'
 import {Actions} from '../Actions/Actions'
-import { Messaging } from '../Communication';
+import { Messaging, Stages } from '../Communication';
 import { Packet } from './Packet';
+import { PluginInstance } from '../Extensions';
 
 export class Client{
         public Server: string = 'https://v3.palringo.com:3051';
@@ -20,6 +21,7 @@ export class Client{
         public info: Information;
         public actions: Actions;
         public messaging: Messaging;
+        public stages: Stages;
         private _id: number;
         public Debug: boolean;
 
@@ -30,7 +32,6 @@ export class Client{
             this.On = new Delegates();
             this.On.LoginSuccess = (user) => this._loginsuccess(user)
         }
-        
 
 
         login(email: string, password: string, device?: DeviceType){
@@ -65,15 +66,16 @@ export class Client{
             this.info = new Information(this, user);
             this.actions = new Actions(this);
             this.messaging = new Messaging(this);
+            this.stages = new Stages(this);
             this.Connection.on('message send', (data: { body: IMessage}) =>{
                 if(data.body.originator == this._id)
                     return;
 
                 var msg = new ExtendedMessage(data.body);
                 var userId = msg.originator;
-
                 this.info.requestUser(userId, (user) => {
                     msg.userProfile = user;
+
                     if(!msg.isGroup){
                         this.On.Trigger('pm', msg);
                         return;

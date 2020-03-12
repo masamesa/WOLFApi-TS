@@ -10,7 +10,7 @@ export function Plugin(command: string, options?: iPluginOptions) {
         Object.getOwnPropertyNames(target).filter(function (p) {
             if (typeof target[p] === 'function')
                 if(descriptor.value == target[p])
-                    PluginInstance.register(command, options, target[p]);
+                    PluginInstance.register(command.toLowerCase(), options, target[p]);
         });
     }
 }

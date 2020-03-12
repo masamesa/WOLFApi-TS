@@ -115,9 +115,9 @@ export enum DeviceType
 
     iPad = 6,
 
-    WindowsPhone7 = 9,
+    Web = 8, 
 
-    Web = 8
+    WindowsPhone7 = 9
 }
 
 

@@ -1,7 +1,7 @@
 import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets'
 import {AdminActionTypes, Role, GroupType} from '../Types/Types'
-import {AdminActionResult, GroupActionResult, ExtendedGroup, GroupMember} from '../Modules/Modules'
+import {AdminActionResult, GroupActionResult, ExtendedGroup, GroupMember} from '../Models/Models'
 
 export class Actions{
     public Packet = new Packets();
@@ -59,13 +59,15 @@ export class Actions{
         });
     }
 
-    async getExtendedGroup(groupType: GroupType, groupName?: string, groupID?: number): Promise<ExtendedGroup>{
+    async getExtendedGroup(group: string | number): Promise<ExtendedGroup>{
         return new Promise(async (resolve, reject) =>{
                 if(this.grp != undefined)
                     this.grp = undefined;
 
+                let groupType: GroupType = typeof group === 'string' ? GroupType.name : GroupType.id;
+
                 if(groupType == GroupType.name){
-                var tempGroup: ExtendedGroup = await this.client.info.requestGroup(groupName);
+                var tempGroup: ExtendedGroup = await this.client.info.requestGroup(group);
 
                 if(tempGroup == undefined){
                     this.GroupActionResult.groupNotfound = true;
@@ -76,13 +78,13 @@ export class Actions{
                 }
             
                 else if(groupType == GroupType.id){
-                    await this.client.info.requestGroup(groupID, (resp: ExtendedGroup) => {return resolve(resp)});
+                    await this.client.info.requestGroup(group, (resp: ExtendedGroup) => {return resolve(resp)});
             }
         });
     }
     
     async banUser(group: number, userID: number, callback?: (reason: AdminActionResult) => void){
-        await this.getExtendedGroup(GroupType.id, null, group);
+        await this.getExtendedGroup(group);
         this.client.writePacket(this.Packet.adminAction(group, userID, AdminActionTypes.Ban), false, false, async (data: { code: number, body: any}) =>{
             if(data.code != 200){
                 if(callback)
@@ -100,7 +102,7 @@ export class Actions{
     }
 
     async kickUser(group: number, userID: number, callback?: (reason: AdminActionResult) => void){
-        await this.getExtendedGroup(GroupType.id, null, group);
+        await this.getExtendedGroup(group);
         this.client.writePacket(this.Packet.adminAction(group, userID, AdminActionTypes.Kick), false, false, async (data: { code: number, body: any}) =>{
             if(data.code != 200){
                 if(callback)
@@ -118,7 +120,7 @@ export class Actions{
     }
 
     async silenceUser(group: number, userID: number, callback?: (reason: AdminActionResult) => void){
-        await this.getExtendedGroup(GroupType.id, null, group);
+        await this.getExtendedGroup(group);
         this.client.writePacket(this.Packet.adminAction(group, userID, AdminActionTypes.Silence), false, false, async (data: { code: number, body: any}) =>{
             if(data.code != 200){
                 if(callback)
@@ -136,7 +138,7 @@ export class Actions{
     }
 
     async resetUser(group: number, userID: number, callback?: (reason: AdminActionResult) => void){
-        await this.getExtendedGroup(GroupType.id, null, group);
+        await this.getExtendedGroup(group);
         this.client.writePacket(this.Packet.adminAction(group, userID, AdminActionTypes.Reset), false, false, async (data: { code: number, body: any}) =>{
             if(data.code != 200){
                 if(callback)
@@ -154,7 +156,7 @@ export class Actions{
     }
 
     async modUser(group: number, userID: number, callback?: (reason: AdminActionResult) => void){
-        await this.getExtendedGroup(GroupType.id, null, group);
+        await this.getExtendedGroup(group);
         this.client.writePacket(this.Packet.adminAction(group, userID, AdminActionTypes.Mod), false, false, async (data: { code: number, body: any}) =>{
             if(data.code != 200){
                 if(callback)
@@ -172,7 +174,7 @@ export class Actions{
     }
 
     async adminUser(group: number, userID: number, callback?: (reason: AdminActionResult) => void){
-        await this.getExtendedGroup(GroupType.id, null, group);
+        await this.getExtendedGroup(group);
         this.client.writePacket(this.Packet.adminAction(group, userID, AdminActionTypes.Admin), false, false, async (data: { code: number, body: any}) =>{
             if(data.code != 200){
                 if(callback)
@@ -190,7 +192,7 @@ export class Actions{
     }
 
     async joinGroup(groupName: string, password?: string, callback?: (reason: GroupActionResult) => void){
-        await this.getExtendedGroup(GroupType.name, groupName, null).then((val: ExtendedGroup) =>{ this.grp = val;});
+        await this.getExtendedGroup(groupName).then((val: ExtendedGroup) =>{ this.grp = val;});
         await this.client.writePacket(this.Packet.groupJoin(groupName, password), false, false, async (data: {code: number, body: any}) =>{
             
             if(data.code != 200){

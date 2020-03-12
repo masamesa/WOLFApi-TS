@@ -1,7 +1,7 @@
 import {Dictionary} from '../Polyfill/Dictionary';
 import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets'
-import {ExtendedUser, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Modules/Modules';
+import {ExtendedUser, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Models/Models';
 import { Privilege, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '../Types/Types'
 import { Extensions } from '../Extensions';
 import { isNull } from 'util';

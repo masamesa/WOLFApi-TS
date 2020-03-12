@@ -1,7 +1,7 @@
 //this class is pretty much stolen all from calico-crusade's old palringoapi-ts, I don't see a better way to do it.
 //https://github.com/calico-crusade/palringoapi-ts/blob/75fd0626566d4c3db0cbb60d40b5192e815f1fec/library/src/Networking/Delegates.ts
 import {Dictionary} from './../Polyfill/Dictionary'
-import {ExtendedUser, ExtendedMessage, AdminAction} from '.././Modules/Modules';
+import {ExtendedUser, ExtendedMessage, AdminAction} from '../Models/Models';
 
 export class Delegates {
 

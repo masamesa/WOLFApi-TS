@@ -105,3 +105,6 @@ dist
 
 # Types file type
 *.d.ts
+
+main.js
+source/src/test.ts

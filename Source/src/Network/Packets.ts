@@ -1,5 +1,5 @@
 import { Packet } from './../Network/Packet';
-import { ExtendedUser, SelectedList, CGroup } from '.././Modules/Modules';
+import { ExtendedUser, SelectedList, CGroup, StageInfo } from '../Models/Models';
 import { AdminActionTypes, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '.././Types/Types';
 import { isNull } from 'util';
 import { Extensions } from '../Extensions';
@@ -276,13 +276,14 @@ export class Packets{
     //#region message related packets
 
     messagePacket(id: number, isGroup: boolean,
-        msg: any, mimeType: string) {
+        msg: any, mimeType: string, flightId?: string) {
     
         return new Packet('message send', {
             recipient: id,
             data: msg,
             mimeType: mimeType,
-            isGroup: isGroup
+            isGroup: isGroup,
+            flightId: flightId ? flightId : Math.random().toString(36).substring(7)
         });
     }
 
@@ -314,4 +315,30 @@ export class Packets{
 
     //#endregion
 
+
+    //#region 
+
+    requestAudioSlots(groupID: number, subscribe?: boolean){
+        return new Packet('group audio slot list', {
+            id: groupID,
+            subscribe: subscribe
+        });
+    }
+
+    slotUpdate(groupID: number, slotID: StageInfo){
+        return new Packet('group audio slot update', {
+            id: groupID,
+            slot: slotID
+        });
+    }
+
+    broadcast(groupID: number, slotID: number, sdp: any){
+        return new Packet('group audio broadcast',{
+            id: groupID,
+            slotId: slotID,
+            sdp: sdp
+        });
+    }
+
+    //#endregion
 }
