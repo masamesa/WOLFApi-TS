@@ -35,7 +35,7 @@ export class Messaging{
         return;
     }
 
-    async nextMessage(message: ExtendedMessage, callback?: (resp: ExtendedMessage) => void, anyNextMessage?: boolean){
+    async nextMessage(message: ExtendedMessage, callback?: (resp: ExtendedMessage) => void, anyNextMessage?: boolean): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', (data: { body: IMessage}) =>{
                 if(data.body.originator != this.client.info.ClientProfile.id && anyNextMessage ? true : message.originator == data.body.originator 
@@ -58,7 +58,7 @@ export class Messaging{
         return;
     }
 
-    async nextGroupMessage(groupID: number, callback?: (resp: ExtendedMessage) => void){
+    async nextGroupMessage(groupID: number, callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', (data: { body: IMessage}) =>{
                 if(data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == groupID){
@@ -79,7 +79,7 @@ export class Messaging{
         return;
     }
 
-    async nextPrivateMessage(userID: number, callback?: (resp: ExtendedMessage) => void){
+    async nextPrivateMessage(userID: number, callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', (data: { body: IMessage}) =>{
                 if(!data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == userID){
@@ -100,7 +100,7 @@ export class Messaging{
         return;
     }
 
-    async messages(callback?: (resp: ExtendedMessage) => void){
+    async messages(callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', (data: { body: IMessage}) =>{
                 let msg = new ExtendedMessage(data.body);
