@@ -23,35 +23,33 @@ export class Messaging{
     }
 
     private async _checkMessage(message: Message): Promise<boolean>{
-        let tempbool: boolean;
+        let tempbool: boolean = false;
         return new Promise((resolve, reject) => {
             for (var plugin in PluginInstance.plugins.all()){
                 if(message.text.startsWith(plugin, 1))
                     return tempbool = true;
             }
-            if(tempbool)
-                return resolve(true);
+            
+            return resolve(tempbool);
         });
         return;
     }
 
     async nextMessage(message: ExtendedMessage, callback?: (resp: ExtendedMessage) => void, anyNextMessage?: boolean): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
-            this.client.Connection.on('message send', (data: { body: IMessage}) =>{
+            this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
                 if(data.body.originator != this.client.info.ClientProfile.id && anyNextMessage ? true : message.originator == data.body.originator 
-                    && this._checkMessage(new Message(data.body))){
+                    && await this._checkMessage(new Message(data.body)) == false){
 
-                    let msg = new ExtendedMessage(data.body);
-                    this.client.info.requestUser(data.body.originator, (resp: ExtendedUser) => {
-                        return msg.userProfile = resp;
-                    });
-                    if(msg.isGroup)
-                        this.client.info.requestGroup(msg.recipient, (resp: ExtendedGroup) => {
-                            return msg.group = resp;
-                        });
-                    if(callback)
-                        callback(msg);
-                    return resolve(msg);
+                        let msg = new ExtendedMessage(data.body);
+                        msg.userProfile = await this.client.info.requestUser(data.body.originator);
+
+                        if(msg.isGroup)
+                            msg.group = await this.client.info.requestGroup(msg.recipient);
+
+                        if(callback)
+                            return callback(msg);
+                        return resolve(msg);
                 }
             });
         });
@@ -60,18 +58,18 @@ export class Messaging{
 
     async nextGroupMessage(groupID: number, callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
-            this.client.Connection.on('message send', (data: { body: IMessage}) =>{
-                if(data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == groupID){
+            this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
+                if(data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == groupID
+                    && await this._checkMessage(new Message(data.body)) == false){
                     let msg = new ExtendedMessage(data.body);
-                    this.client.info.requestUser(data.body.originator, (resp: ExtendedUser) => {
-                        return msg.userProfile = resp;
-                    });
+
+                    msg.userProfile = await this.client.info.requestUser(data.body.originator);
+
                     if(msg.isGroup)
-                        this.client.info.requestGroup(msg.recipient, (resp: ExtendedGroup) => {
-                            return msg.group = resp;
-                        });
+                        msg.group = await this.client.info.requestGroup(msg.recipient);
+
                     if(callback)
-                        callback(msg);
+                        return callback(msg);
                     return resolve(msg);
                 }
             });
@@ -81,18 +79,15 @@ export class Messaging{
 
     async nextPrivateMessage(userID: number, callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
-            this.client.Connection.on('message send', (data: { body: IMessage}) =>{
-                if(!data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == userID){
+            this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
+                if(!data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == userID
+                    && await this._checkMessage(new Message(data.body)) == false){
                     let msg = new ExtendedMessage(data.body);
-                    this.client.info.requestUser(data.body.originator, (resp: ExtendedUser) => {
-                        return msg.userProfile = resp;
-                    });
-                    if(msg.isGroup)
-                        this.client.info.requestGroup(msg.recipient, (resp: ExtendedGroup) => {
-                            return msg.group = resp;
-                        });
+                    
+                    msg.userProfile = await this.client.info.requestUser(data.body.originator);
+
                     if(callback)
-                        callback(msg);
+                        return callback(msg);
                     return resolve(msg);
                 }
             });
@@ -102,17 +97,16 @@ export class Messaging{
 
     async messages(callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
-            this.client.Connection.on('message send', (data: { body: IMessage}) =>{
+            this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
                 let msg = new ExtendedMessage(data.body);
-                this.client.info.requestUser(data.body.originator, (resp: ExtendedUser) => {
-                    return msg.userProfile = resp;
-                });
+
+                msg.userProfile = await this.client.info.requestUser(data.body.originator);
+
                 if(msg.isGroup)
-                    this.client.info.requestGroup(msg.recipient, (resp: ExtendedGroup) => {
-                        return msg.group = resp;
-                    });
+                    msg.group = await this.client.info.requestGroup(msg.recipient);
+
                 if(callback)
-                    callback(msg);
+                    return callback(msg);
                 return resolve(msg);
             });
         });

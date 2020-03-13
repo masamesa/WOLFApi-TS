@@ -85,37 +85,42 @@ export class Information{
 
 //#region user related information requests
 
-    async requestUser(id: number, callback?: (user: (ExtendedUser)) => void){
-        this.client.writePacket(this.Packet.userProfile(id, true), true, false, (resp: (ExtendedUser)) =>{
-            
-            //This is all due to https://github.com/strothj, he joined my stream and 
-            //showed/wrote all of this field enum map stuff.
-            type ExtendedUserFields = keyof Omit<ExtendedUser, keyof User | "extended" | "avatar">;
-            const fieldEnumMap: Record<ExtendedUserFields, Privilege>= 
-            {   
-                isStaff: Privilege.Staff,
-                isVolunteer: Privilege.Volunteer,   
-                isAgent: Privilege.Agent,
-                isVIP: Privilege.VIP,
-                isBot: Privilege.Bot,
-                isPest: Privilege.Pest,
-                isEliteClubOne: Privilege.EliteClubOne,
-                isEliteClubTwo: Privilege.EliteClubTwo,
-                isEliteClubThree: Privilege.EliteClubThree,
-                isSelectClubOne: Privilege.SelectClubOne,
-                isSelectClubTwo: Privilege.SelectClubTwo,
-                hasPremium: Privilege.PremiumAccountHolder,
-                isShadowBanned: Privilege.ShadowBanned,
-            }
-            for(const field of (Object.keys(fieldEnumMap) as ExtendedUserFields[])){
-                const privilege = fieldEnumMap[field]; 
-                resp[field] = (privilege == (privilege & resp.privileges));
-            }
-            resp.avatar = `https://clientavatars.palapi.net/FileServerSpring/subscriber/avatar/${resp.id}?size=500&iconId=${resp.icon}`;
+    async requestUser(id: number, callback?: (user: (ExtendedUser)) => void): Promise<ExtendedUser>{
+        return new Promise((resolve, reject) =>{
 
-            if(callback)
-                callback(resp);
+            this.client.writePacket(this.Packet.userProfile(id, true), true, false, (resp: (ExtendedUser)) =>{
+                
+                //This is all due to https://github.com/strothj, he joined my stream and 
+                //showed/wrote all of this field enum map stuff.
+                type ExtendedUserFields = keyof Omit<ExtendedUser, keyof User | "extended" | "avatar">;
+                const fieldEnumMap: Record<ExtendedUserFields, Privilege>= 
+                {   
+                    isStaff: Privilege.Staff,
+                    isVolunteer: Privilege.Volunteer,   
+                    isAgent: Privilege.Agent,
+                    isVIP: Privilege.VIP,
+                    isBot: Privilege.Bot,
+                    isPest: Privilege.Pest,
+                    isEliteClubOne: Privilege.EliteClubOne,
+                    isEliteClubTwo: Privilege.EliteClubTwo,
+                    isEliteClubThree: Privilege.EliteClubThree,
+                    isSelectClubOne: Privilege.SelectClubOne,
+                    isSelectClubTwo: Privilege.SelectClubTwo,
+                    hasPremium: Privilege.PremiumAccountHolder,
+                    isShadowBanned: Privilege.ShadowBanned,
+                }
+                for(const field of (Object.keys(fieldEnumMap) as ExtendedUserFields[])){
+                    const privilege = fieldEnumMap[field]; 
+                    resp[field] = (privilege == (privilege & resp.privileges));
+                }
+                resp.avatar = `https://clientavatars.palapi.net/FileServerSpring/subscriber/avatar/${resp.id}?size=500&iconId=${resp.icon}`;
+
+                if(callback)
+                    callback(resp);
+                return resolve(resp);
+            });
         });
+        return
     }
 
     async getUserAvatar(userID: number, iconID: number, size?: number){
