@@ -1,6 +1,6 @@
 {
   "name": "wolfapi-ts",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "A Typescript WOLF API",
   "main": "dist/WOLF-TS.node.min.js",
   "files": [

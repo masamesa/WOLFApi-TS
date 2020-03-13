@@ -139,15 +139,25 @@ class Main{
         await client.Info.updateCharm(48);
         //gets next message of the user
         //Parameters: ExtendedMessage, callback, and if you want to allow any next message from group to be the callback.
+        let message: ExtendedMessage = await client.Messaging.nextMessage(msg);
+        //loop version
         await client.Messaging.nextMessage(msg, resp => console.log(resp), true);
-        
+
         //These are meant to be put in a while loop to scrape messages, I added it in purely because 
         //this might help someone in the future with e.g a bot that allows any responses for a duration 
         //gets next message in specified group
+        let message1: ExtendedMessage = await client.Messaging.nextGroupMessage(1);
+        //loop version
         await client.Messaging.nextGroupMessage(1, resp => console.log(resp));
+
         //gets next message in specified PM
+        let message2: ExtendedMessage = await client.Messaging.nextPrivateMessage(1);
+        //loop version
         await client.Messaging.nextPrivateMessage(1, resp => console.log(resp));
+
         //returns next message of any chat
+        let message3: ExtendedMessage = await client.Messaging.messages();
+        //loop version
         await client.Messaging.messages(resp => resp => console.log(resp));
         //
 
