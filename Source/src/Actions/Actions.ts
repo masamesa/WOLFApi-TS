@@ -29,10 +29,10 @@ export class Actions{
                     if(i == resp.length && resp[i].id != target)
                         return this.AdminActionResult.userNoLongerInGroup = true;
 
-                    if(resp[i].id != client.info.ClientProfile.id)
+                    if(resp[i].id != client.info.ClientProfile.subscriber.id)
                         return this.AdminActionResult.botNolongerInGroup = true;
 
-                    if(resp[i].id == client.info.ClientProfile.id){
+                    if(resp[i].id == client.info.ClientProfile.subscriber.id){
 
                         if(resp[i].capabilities == Role.Mod && cachedTarget.capabilities == (Role.Admin | Role.Mod | Role.Owner))
                             return this.AdminActionResult.insufficientPower = true;

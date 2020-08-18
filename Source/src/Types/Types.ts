@@ -57,9 +57,9 @@ export enum NewsType{
 
 export enum OnlineState{
 
-    Online = 0,
+    Online = 1,
 
-    Away = 1,
+    Away = 2,
 
     Busy = 5,
 

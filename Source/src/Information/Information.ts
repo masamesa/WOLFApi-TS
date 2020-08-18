@@ -1,7 +1,7 @@
 import {Dictionary} from '../Polyfill/Dictionary';
 import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets'
-import {ExtendedUser, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements} from '../Models/Models';
+import {ExtendedUser, User, GroupMember, ExtendedGroup, Message, IHistoricalMessage, Charms, SelectedList, CharmStats, TopicList, CGroup, UserAchievements, GroupStatistics, Achievements, ExtendedClient} from '../Models/Models';
 import { Privilege, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '../Types/Types'
 import { Extensions } from '../Extensions';
 import { isNull } from 'util';
@@ -11,8 +11,15 @@ import { isNull } from 'util';
 //easily understand what each function does just by the name of them.
 export class Information{
     public Packet = new Packets();
-    constructor(private client: Client, public ClientProfile: ExtendedUser){
-        this.requestUser(ClientProfile.id, resp => this.ClientProfile = resp);
+    constructor(private client: Client, public ClientProfile: ExtendedClient){
+        this.requestUser(ClientProfile.subscriber.id, resp => {
+            let EC = new ExtendedClient();
+            EC = resp;
+            EC.cognito = ClientProfile.cognito;
+            EC.subscriber = ClientProfile.subscriber;
+            EC.isNew = ClientProfile.isNew;
+            this.ClientProfile = EC;
+        });
     }
 
 //#region groupr related information requests
@@ -229,7 +236,6 @@ export class Information{
 
     //#endregion
 
-    
 //#region update profile
     async updateUserProfile(profile: ExtendedUser){
         this.client.writePacket(this.Packet.updateUserProfile(profile));

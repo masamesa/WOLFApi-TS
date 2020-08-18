@@ -83,8 +83,93 @@ export interface CharmStats{
     totalExpired: number;
 }
 
+
+export class Welcome{
+    ip?: string;
+    country?: string;
+    token?: string;
+    endpointConfig?:{
+        avatarEndpoint?: string;
+        mmsUploadEndpoint?: string;
+        banner?:{
+            notification?:{
+                en?: string;
+                ar?: string;
+            },
+            promotion?:{
+                en?: string;
+                ar?: string;
+            }
+        }
+    }
+}
 //all flags in user and extended user are set to nullable
 //so the end user can use the models as a basis to edit his or her profile.
+export class ClientModel{
+    cognito?:{
+        identity?: string;
+        token?: string;
+    }
+    subscriber?:{
+        id?: number;
+        hash?: string;
+        privileges?: number;
+        nickname?: string;
+        status?: string;
+        reputation?: number;
+        icon?: number;
+        onlineState?: number;
+        deviceType?: DeviceType;
+        groupMemberCapabilities?: Role;
+        contactListBlockedState?: any;
+        //unsure what type either are, couldn't get result to appear. Likely number or boolean
+        contactListAuthState?: any;
+        charms?: SelectedList[];
+        email?: string;
+    }
+    isNew?: boolean;
+}
+
+export class ExtendedClient extends ClientModel {
+    extended?:{
+        language?: Language;
+        urls?: string[];
+        lookingFor?: LookingFor | number;
+        //datetime in a string e.g '2003-05-08T00:00:00.000Z'
+        dateOfBirth?: string;
+        gender?: Gender | number;
+        about?: string;
+        //this is legacy v2 to be opted out of being serached for as a contact according to james
+        optOut?: any;
+        utcOffset?: number;
+        latitude?: number;
+        longitude?: number;
+        name1?: string;
+        //apparently this is looking for
+        after?: number;
+        dobD?: number;
+        dobM?: number;
+        dobY?: number;
+        relationshipStatus?: RelationshipStatus | number;
+        sex?: Gender | number;
+        name?: string;
+    }
+    isStaff?: boolean;
+    isVolunteer?: boolean;
+    isAgent?: boolean;
+    isVIP?: boolean;
+    isBot?: boolean;
+    isPest?: boolean;
+    isEliteClubOne?: boolean;
+    isEliteClubTwo?: boolean;
+    isEliteClubThree?: boolean;
+    isSelectClubOne?: boolean;
+    isSelectClubTwo?: boolean;
+    isShadowBanned?: boolean;
+    hasPremium?: boolean;
+    avatar?: string;
+}
+
 export class User{
     id?: number;
     hash?: string;
@@ -102,8 +187,7 @@ export class User{
     charms?: SelectedList[];
     email?: string;
 }
-
-export class ExtendedUser extends User{
+export class ExtendedUser extends User {
     extended?:{
         language?: Language;
         urls?: string[];

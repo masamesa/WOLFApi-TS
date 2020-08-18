@@ -38,7 +38,7 @@ export class Messaging{
     async nextMessage(message: ExtendedMessage, callback?: (resp: ExtendedMessage) => void, anyNextMessage?: boolean): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
-                if(data.body.originator != this.client.info.ClientProfile.id && anyNextMessage ? true : message.originator == data.body.originator 
+                if(data.body.originator != this.client.info.ClientProfile.subscriber.id && anyNextMessage ? true : message.originator == data.body.originator 
                     && await this._checkMessage(new Message(data.body)) == false){
 
                         let msg = new ExtendedMessage(data.body);
@@ -59,7 +59,7 @@ export class Messaging{
     async nextGroupMessage(groupID: number, callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
-                if(data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == groupID
+                if(data.body.isGroup && data.body.originator != this.client.info.ClientProfile.subscriber.id && data.body.recipient == groupID
                     && await this._checkMessage(new Message(data.body)) == false){
                     let msg = new ExtendedMessage(data.body);
 
@@ -80,7 +80,7 @@ export class Messaging{
     async nextPrivateMessage(userID: number, callback?: (resp: ExtendedMessage) => void): Promise<ExtendedMessage>{
         return new Promise((resolve, reject) =>{
             this.client.Connection.on('message send', async (data: { body: IMessage}) =>{
-                if(!data.body.isGroup && data.body.originator != this.client.info.ClientProfile.id && data.body.recipient == userID
+                if(!data.body.isGroup && data.body.originator != this.client.info.ClientProfile.subscriber.id && data.body.recipient == userID
                     && await this._checkMessage(new Message(data.body)) == false){
                     let msg = new ExtendedMessage(data.body);
                     
