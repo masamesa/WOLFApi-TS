@@ -2,9 +2,9 @@ import {Client} from '../Network/Client';
 import {Packets} from '../Network/Packets';
 import { StageInfo } from '../Models';
 import { FakeMediaStreamTrack } from 'fake-mediastreamtrack';
+import { promises, resolve } from 'dns';
 //import adapter from 'webrtc-adapter';
-
-
+//import { RTCPeerConnection, RTCSessionDescription } from 'wrtc'
 
 export class Stages{
     public packet = new Packets();
@@ -47,4 +47,51 @@ export class Stages{
         })
   
     }  */
+    /*
+    _catch(e, t) {
+        try {
+            var o = e()
+        } catch (e) {
+            return t(e)
+        }
+        return o && o.then ? o.then(void 0, t) : o
+    }
+
+    private async _consume(groupID: number, slotID: number, sdp: string): Promise<RTCSessionDescriptionInit>{
+        return new Promise((resolve, reject) =>{
+            this.client.writePacket(this.packet.consume(groupID, slotID, sdp), true, true, resp => {
+                resolve(resp);
+            })
+        });
+        return;
+    }*/
+/*
+    async consume(groupID: number, slotID?: number, sdp?: string){            
+        var e = this._catch(function() {
+            
+
+            var r = new RTCPeerConnection();
+            var t = this;
+            console.log("1")
+            return r.ontrack("addstream", e=> {console.log(e)}, {once: !0})
+            console.log("2")
+            Promise.resolve(r.createOffer({
+                offerToReceiveVideo: !1,
+                offerToReceiveAudio: !0
+            })).then(async e =>{
+                return r.setLocalDescription(e),
+                Promise.resolve(await t._consume(groupID, 1, e.sdp)).then(e => {
+                    var t = e.sdp;
+                    return Promise.resolve (r.setRemoteDescription(new RTCSessionDescription({
+                        type: "answer",
+                        sdp: t
+                    })));
+                })
+            })
+        },
+        function(e) {
+            console.error("error:", e);
+        });         
+        return Promise.resolve(e && e.then ? e.then(function() {}) : void 0)
+    }*/
 }

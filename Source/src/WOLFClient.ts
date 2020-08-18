@@ -4,7 +4,7 @@ import { Information } from './Information/Information';
 import { Actions } from './Actions/Actions';
 import { Messaging } from './Communication/Messaging';
 import { Delegates } from './Network/Delegates';
-import { DeviceType } from './Types/Types';
+import { DeviceType, OnlineState } from './Types/Types';
 
 export class WolfClient{
     public _client: Client;
@@ -41,9 +41,14 @@ export class WolfClient{
     //debug(){
     //    this._client.Debug = true;
     //}
-
-    async login(Email: string, Password: string, Devicetype?: DeviceType){
-        this._client.login(Email, Password, Devicetype);
+    async login(Email: string, Password: string, Devicetype?: DeviceType, State?: OnlineState, Type?: any){
+        this._client.login(Email, Password, Devicetype, State, Type);
+    }
+    async logout(){
+        this._client.logout();
+    }
+    async updateState(state: OnlineState){
+        this._client.updateState(state);
     }
     public get On(){
         return this._client.On;

@@ -49,7 +49,7 @@ class Main{
         //Updates the bot's online status to either busy/away/online/invisible
         await client.Info.updateOnlineState(OnlineState.Invisible);
         //Requests all achivements for the supplied userID
-        await client.Info.requestUserAchievements(client.Info.ClientProfile.id, resp => console.log(resp));
+        await client.Info.requestUserAchievements(client.Info.ClientProfile.subscriber.id, resp => console.log(resp));
         //Requests all the achievements, the first paremeter defaults to english if set to null, however you may set your own.
         await client.Info.requestAchievementList(Language.english, resp => console.log(JSON.stringify(resp, null, 4)));
         //Contact actions, currently userBlock is not enabled server side, however I kept it
@@ -159,16 +159,15 @@ class Main{
         let message3: ExtendedMessage = await client.Messaging.messages();
         //loop version
         await client.Messaging.messages(resp => resp => console.log(resp));
-        //
-
-        
+        //update the online state of the bot
+        await client.updateState(OnlineState.Busy);
     }
 
     async login(){
         //All of this is pretty self explanatory.
         this.bot = new WolfClient();
         this.bot.On.LoginSuccess = (user) =>{
-            console.log(user.nickname);
+            console.log(user[0].subscriber.nickname);
         }
         this.bot.On.LoginFailed = (resp) =>{
             console.log(resp);
@@ -183,8 +182,8 @@ class Main{
         this.bot.On.Connected = () =>{
             console.log("connected");
         }
-
-        await this.bot.login("email", "Password", DeviceType.Web);
+        //logs in the bot, email/username, password, device type(default web), online state(default away), login type(default email; soon to support apple/etc)
+        await this.bot.login("email", "Password", DeviceType.Web, OnlineState.Away, 'email');
 
         //This registers all plugins with a command key e.g '>test' would execute everything in the plugin 'test';
         //you can have as many plugins as you want.

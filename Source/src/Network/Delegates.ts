@@ -1,7 +1,8 @@
 //this class is pretty much stolen all from calico-crusade's old palringoapi-ts, I don't see a better way to do it.
 //https://github.com/calico-crusade/palringoapi-ts/blob/75fd0626566d4c3db0cbb60d40b5192e815f1fec/library/src/Networking/Delegates.ts
 import {Dictionary} from './../Polyfill/Dictionary'
-import {ExtendedUser, ExtendedMessage, AdminAction} from '../Models/Models';
+import {ExtendedMessage, AdminAction, ExtendedClient} from '../Models/Models';
+import { OnlineState } from '../Types/Types';
 
 export class Delegates {
 
@@ -11,7 +12,7 @@ export class Delegates {
         this._events = new Dictionary<string, Function[]>();
     }
 
-    public set LoginSuccess(value: (item: ExtendedUser) => void) {
+    public set LoginSuccess(value: (t: [ExtendedClient, OnlineState?]) => void) {
         this.es('ls', value);
     }
     public set LoginFailed(value: (item: { code: number }) => void) {
@@ -49,7 +50,7 @@ export class Delegates {
         this.event(event, data);
     }
 
-    private es(name: string, fn: (item: any) => void) {
+    private es(name: string, fn: (item: any, item2?: any) => void) {
         if (!this._events)
             this._events = new Dictionary<string, Function[]>();
         if (!this._events.contains(name))

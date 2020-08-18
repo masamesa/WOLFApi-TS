@@ -3,13 +3,38 @@ import { ExtendedUser, SelectedList, CGroup, StageInfo } from '../Models/Models'
 import { AdminActionTypes, Language, Gender, RelationshipStatus, LookingFor, DeviceType, OnlineState } from '.././Types/Types';
 import { isNull } from 'util';
 import { Extensions } from '../Extensions';
+import {Md5} from 'ts-md5'
+import { truncateSync } from 'fs';
 
 //List of all the current packet templates implimented into the API.
 export class Packets{
 
     //#region client initlization
 
-    loginPacket(Email: string, Password: string){
+    logout(){
+        return new Packet('security logout');
+    }
+
+    loginPacket(Username: string, Password: string, type: any, device: DeviceType){
+        switch(type){
+            case 'email':{
+                return new Packet('security login', {
+                    deviceTypeId: device,
+                    type: 'email',
+                    username: Username,
+                    password: Md5.hashStr(Password),
+                    md5Password: true
+                },
+                {
+                    version: 2
+                });
+            }
+        }
+    }
+
+    //soon to be deprecated, but keeping it in just in case anyone
+    //has a use for it
+    loginPacketv1(Email: string, Password: string){
         return new Packet('security login', {
             username: Email,
             password: Password
@@ -89,6 +114,17 @@ export class Packets{
     //#endregion
 
     //#region user profile
+
+    preseenceUpdate(state: OnlineState){
+        new Packet(
+            'subscriber settings update', 
+            {
+                state:{ 
+                    state: state
+                }
+            }
+        )
+    }
 
     userProfile(userID: number, extendedProfile: boolean) {
         return new Packet('subscriber profile', {
@@ -336,6 +372,14 @@ export class Packets{
         return new Packet('group audio broadcast',{
             id: groupID,
             slotId: slotID,
+            sdp: sdp
+        });
+    }
+
+    consume(groupID: number, slotID: number, sdp: string){
+        return new Packet('group audio consume', {
+            id: groupID,
+            slotid: slotID,
             sdp: sdp
         });
     }
