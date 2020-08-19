@@ -20,7 +20,6 @@ export enum LookingFor{
     datingRelationshipNetworking = 14,
 
     friendshipDatingRelationshipNetworking = 15
-
 }
 
 export enum RelationshipStatus{
@@ -55,7 +54,7 @@ export enum NewsType{
     Favorite = 2
 }
 
-export enum OnlineState{
+export const enum OnlineState{
 
     Online = 1,
 
@@ -97,7 +96,7 @@ export enum Privilege{
 
 }
 
-export enum DeviceType
+export const enum DeviceType
 {
     Unknown = 0,
 
@@ -121,7 +120,7 @@ export enum DeviceType
 }
 
 
-export enum Language{
+export const enum Language{
     english = 1,
 
     dutch = 3,
@@ -195,7 +194,7 @@ export enum Language{
     bulgarian = 45
 }
 
-export enum AdminActionTypes{
+export const enum AdminActionTypes{
         Reset = 0,
         Admin = 1,
         Mod = 2,

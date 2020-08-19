@@ -7,7 +7,7 @@ import { Delegates } from './Delegates';
 import { ExtendedUser, IMessage, ExtendedMessage, AdminAction, Welcome, ClientModel, ExtendedClient} from '../Models/Models';
 import { Information } from '../Information/Information';
 import { Extensions } from '../Extensions/Extensions';
-import {DeviceType, OnlineState} from '.././Types/Types'
+import {DeviceType, OnlineState} from '.././Types/index'
 import {Actions} from '../Actions/Actions'
 import { Messaging, Stages } from '../Communication';
 import { Packet } from './Packet';
@@ -52,7 +52,10 @@ export class Client{
             device = DeviceType.Web;
         if(!state)
             state = OnlineState.Online
-        var url = `${this.Server}?token=WE${new TokenGenerator().generate()}&device=${DeviceType[device].toLowerCase()}`;
+
+        //workaround for enums not being compiled at runtime and const enums removing enum key.
+        let deviceTypeArray: string[] = ['unkown', 'bot', 'pc', 'genericmobile', 'mac', 'iphone', 'ipad', 'android', 'web', 'windowsphone7']
+        var url = `${this.Server}?token=WE${new TokenGenerator().generate()}&device=${deviceTypeArray[device]}`;
         this.Connection = socket(url,{
             transports: ['websocket'],
             reconnection: false,
